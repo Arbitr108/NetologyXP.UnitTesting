@@ -12,6 +12,7 @@ class Messager {
             messaging: []
         };
         this._conference = [];
+        this._inbox = [];
     }
 
     addContact(contact) {
@@ -43,6 +44,10 @@ class Messager {
     sendConferenceMessage(message) {
         let self = this;
         this._conference.map((contact)=> self.sendMessage(contact, message));
+    }
+
+    hasIncomingMessages() {
+        return this._inbox.length > 0;
     }
 
     _addToConference(contact) {

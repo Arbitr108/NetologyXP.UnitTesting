@@ -75,7 +75,8 @@ describe("Messager should", function () {
     });
     describe("recieve messages", function () {
         it("if i am available online", function () {
-
+            messager._inbox.push("test incoming message");
+            messager.hasIncomingMessages().should.be.equal(true);
         });
     });
     describe("remind that my contact has a birthday", function () {
