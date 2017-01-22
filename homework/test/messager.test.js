@@ -44,8 +44,9 @@ describe("Messager should", function () {
             //Arrange
             let contact = new Contact("Paul", "007");
             //Act
-            messager.sendMessage(contact);
+            messager.sendMessage(contact, "test message");
             //Assert
+            messager.getLastMessage().should.be.exactly("test message");
         });
     });
     describe("create a conference", function () {
