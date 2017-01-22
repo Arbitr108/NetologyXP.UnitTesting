@@ -19,9 +19,31 @@ let Messager = require("../messager");
 describe("Messager should", function () {
     describe("has a contact list", function () {
         "use strict";
-        it("when i try to use it", function () {
+        it("if start to use it", function () {
 
-        })
+        });
+    });
+    describe("send a message", function () {
+        it("if i ask to send message to a contact", function () {
+
+        });
+    });
+    describe("create a conference", function () {
+        it("if i ask to create a conference", function () {
+
+        });
+    });
+    describe("send a message to all conference participants", function () {
+        it("if i ask to send message to conference participants", function () {
+        });
+    });
+    describe("recieve messages", function () {
+        it("if i am available online", function () {
+        });
+    });
+    describe("remind that my contact has a birthday", function () {
+        it("if i am available online", function () {
+        });
     })
 
 });
