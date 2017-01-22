@@ -2,6 +2,7 @@
  * Created by asus on 22.01.2017.
  */
 "use strict";
+let assert = require("assert");
 let Messager = require("../messager");
 
 /**
@@ -18,7 +19,6 @@ let Messager = require("../messager");
 
 describe("Messager should", function () {
     describe("has a contact list", function () {
-        "use strict";
         it("if start to use it", function () {
 
         });
