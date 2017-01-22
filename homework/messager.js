@@ -7,6 +7,11 @@ class Messager {
     constructor() {
         this.contacts = new Map();
         this._log = [];
+        this._errors = {
+            conference: [],
+            messaging: []
+        };
+        this._conference = [];
     }
 
     addContact(contact) {
@@ -14,9 +19,32 @@ class Messager {
     }
 
     sendMessage(contact, message) {
+        this._validateContact(contact);
+        this._log.push(message);
+    }
+
+    createConferenceWith() {
+        if (arguments.length == 0)
+            throw "Please add at least one contact to the conference";
+        var _contacts = Array.prototype.slice.call(arguments);
+        let self = this;
+        _contacts.map(function (contact) {
+            self._validateContact(contact);
+            if (!self.contacts.has(contact.getPhone()))
+                self.addContact(contact);
+            if (!self._addToConference(contact)) {
+                self._errors.conference.push(`Error adding ${contact.getPhone()} ${contact.getName()} to the conference`);
+            }
+        })
+    }
+
+    _addToConference(contact) {
+        return this._conference.push(contact.getPhone + ":" + contact.getName());
+    }
+
+    _validateContact(contact) {
         if (!contact instanceof Contact)
             throw `${contact} must be instance of Contact`;
-        this._log.push(message);
     }
 
     getLastMessage() {
@@ -25,5 +53,12 @@ class Messager {
         return this._log[this._log.length - 1];
     }
 
+    getLastErrors(type) {
+        if (type == undefined)
+            throw "The error type is not provided";
+        if (this._errors[type].length == 0)
+            return [];
+        return this._errors[type][this._errors[type].length - 1];
+    }
 }
 module.exports = Messager;

@@ -51,19 +51,27 @@ describe("Messager should", function () {
     });
     describe("create a conference", function () {
         it("if i ask to create a conference", function () {
+            let contact1 = new Contact("Paul", "001");
+            let contact2 = new Contact("John", "002");
 
+            messager.createConferenceWith(contact1, contact2);
+
+            messager.getLastErrors("conference").should.be.empty();
         });
     });
     describe("send a message to all conference participants", function () {
         it("if i ask to send message to conference participants", function () {
+
         });
     });
     describe("recieve messages", function () {
         it("if i am available online", function () {
+
         });
     });
     describe("remind that my contact has a birthday", function () {
         it("if i am available online", function () {
+
         });
     })
 
