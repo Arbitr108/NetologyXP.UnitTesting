@@ -19,8 +19,10 @@ class Messager {
     }
 
     sendMessage(contact, message) {
-        this._validateContact(contact);
-        this._log.push(message);
+        if (message) {
+            this._validateContact(contact);
+            this._log.push(message);
+        }
     }
 
     createConferenceWith() {
@@ -38,8 +40,13 @@ class Messager {
         })
     }
 
+    sendConferenceMessage(message) {
+        let self = this;
+        this._conference.map((contact)=> self.sendMessage(contact, message));
+    }
+
     _addToConference(contact) {
-        return this._conference.push(contact.getPhone + ":" + contact.getName());
+        return this._conference.push(contact.getPhone() + ":" + contact.getName());
     }
 
     _validateContact(contact) {
@@ -49,8 +56,8 @@ class Messager {
 
     getLastMessage() {
         if (this._log.length == 0)
-            return null;
-        return this._log[this._log.length - 1];
+            return [];
+        return this._log[this._log.length - 1] || [];
     }
 
     getLastErrors(type) {
@@ -58,7 +65,7 @@ class Messager {
             throw "The error type is not provided";
         if (this._errors[type].length == 0)
             return [];
-        return this._errors[type][this._errors[type].length - 1];
+        return this._errors[type][this._errors[type].length - 1] || [];
     }
 }
 module.exports = Messager;

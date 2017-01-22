@@ -18,8 +18,7 @@ let Contact = require("../contact");
 //things that i need to
 
 describe("Messager should", function () {
-    //Arrange
-    var messager = {};
+    let messager = {}
 
     beforeEach(function () {
         messager = new Messager();
@@ -38,7 +37,7 @@ describe("Messager should", function () {
             messager.addContact(contact);
             messager.contacts.should.have.size(1);
         })
-    })
+    });
     describe("send a message", function () {
         it("if i ask to send message to a contact", function () {
             //Arrange
@@ -51,17 +50,27 @@ describe("Messager should", function () {
     });
     describe("create a conference", function () {
         it("if i ask to create a conference", function () {
+            //Arrange
             let contact1 = new Contact("Paul", "001");
             let contact2 = new Contact("John", "002");
-
+            //Act
             messager.createConferenceWith(contact1, contact2);
-
+            //Assert
             messager.getLastErrors("conference").should.be.empty();
         });
     });
     describe("send a message to all conference participants", function () {
         it("if i ask to send message to conference participants", function () {
-
+            //Arrange
+            let contact1 = new Contact("Paul", "001");
+            let contact2 = new Contact("John", "002");
+            //Act
+            messager.createConferenceWith(contact1, contact2);
+            messager.sendConferenceMessage("test conference message");
+            //Assert
+            messager.getLastErrors("conference").should.be.empty();
+            messager.getLastMessage().should.be.exactly("test conference message");
+            messager.getLastErrors("messaging").should.be.empty();
         });
     });
     describe("recieve messages", function () {
