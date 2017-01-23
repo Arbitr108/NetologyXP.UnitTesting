@@ -35,7 +35,7 @@ describe("Messager should", function () {
             // Arrange
             let contact = new Contact("Paul", "007");
             messager.addContact(contact);
-            messager.contacts.should.have.size(1);
+            messager.contacts.size.should.be.exactly(1);
         })
     });
     describe("send a message", function () {
@@ -56,14 +56,15 @@ describe("Messager should", function () {
             //Act
             messager.createConferenceWith(contact1, contact2);
             //Assert
+            messager.contacts.size.should.be.exactly(2);
             messager.getLastErrors("conference").should.be.empty();
         });
     });
     describe("send a message to all conference participants", function () {
         it("if i ask to send message to conference participants", function () {
             //Arrange
-            let contact1 = new Contact("Paul", "001");
-            let contact2 = new Contact("John", "002");
+            let contact1 = new Contact("Paul", "001", "1977-11-11");
+            let contact2 = new Contact("John", "002", "1978-11-12");
             //Act
             messager.createConferenceWith(contact1, contact2);
             messager.sendConferenceMessage("test conference message");
@@ -80,8 +81,14 @@ describe("Messager should", function () {
         });
     });
     describe("remind that my contact has a birthday", function () {
-        it("if i am available online", function () {
-
+        it.only("if i am available online", function () {
+            let contact = new Contact("Paul", "001", "1977-01-23");
+            messager.addContact(contact);
+            messager.checkContactsInfo();
+            messager.contacts.size.should.be.exactly(1);
+            messager.getLastMessage().should.be.exactly(
+                `${contact.getName()}(phone:${contact.getPhone()}) has a birthday today. Send congratulations with postcard Happy Birthday?`
+            )
         });
     })
 

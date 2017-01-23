@@ -16,7 +16,7 @@ class Messager {
     }
 
     addContact(contact) {
-        this.contacts.set(contact.getPhone, contact);
+        this.contacts.set(contact.getPhone(), contact);
     }
 
     sendMessage(contact, message) {
@@ -50,15 +50,6 @@ class Messager {
         return this._inbox.length > 0;
     }
 
-    _addToConference(contact) {
-        return this._conference.push(contact.getPhone() + ":" + contact.getName());
-    }
-
-    _validateContact(contact) {
-        if (!contact instanceof Contact)
-            throw `${contact} must be instance of Contact`;
-    }
-
     getLastMessage() {
         if (this._log.length == 0)
             return [];
@@ -71,6 +62,32 @@ class Messager {
         if (this._errors[type].length == 0)
             return [];
         return this._errors[type][this._errors[type].length - 1] || [];
+    }
+
+    _addToConference(contact) {
+        return this._conference.push(contact.getPhone() + ":" + contact.getName());
+    }
+
+    _validateContact(contact) {
+        if (!contact instanceof Contact)
+            throw `${contact} must be instance of Contact`;
+    }
+
+    checkContactsInfo() {
+        //Birthday reminder
+        let self = this;
+        this.contacts.forEach(function (contact) {
+            let birthday = new Date(contact.getBirthday());
+            let today = new Date();
+            if (birthday.getDate() === today.getDate()
+                && birthday.getMonth() === today.getMonth()) {
+                self._log.push(`${contact.getName()}(phone:${contact.getPhone()}) has a birthday today. Send congratulations with postcard ${self._getPostcard()}?`)
+            }
+        });
+    }
+
+    _getPostcard() {
+        return "Happy Birthday";
     }
 }
 module.exports = Messager;
