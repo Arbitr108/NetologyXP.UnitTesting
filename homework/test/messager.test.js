@@ -27,7 +27,7 @@ describe("Messager should", function () {
     describe('has to save contact', function () {
         it("if i add a contact", function () {
             // Arrange
-            let contact = new Contact("Paul", "007");
+            let contact = createContact("Paul");
             messager.addContact(contact);
             messager.contacts.size.should.be.exactly(1);
         })
@@ -35,7 +35,7 @@ describe("Messager should", function () {
     describe("send a message", function () {
         it("if i ask to send message to a contact", function () {
             //Arrange
-            let contact = new Contact("Paul", "007");
+            let contact = createContact("Paul");
             //Act
             messager.sendMessage(contact, "test message");
             //Assert
@@ -45,10 +45,10 @@ describe("Messager should", function () {
     describe("create a conference", function () {
         it("if i ask to create a conference", function () {
             //Arrange
-            let contact1 = new Contact("Paul", "001");
-            let contact2 = new Contact("John", "002");
+            let paul = createContact("Paul");
+            let john = createContact("John");
             //Act
-            messager.createConferenceWith(contact1, contact2);
+            messager.createConferenceWith(paul, john);
             //Assert
             messager.contacts.size.should.be.exactly(2);
             messager.getLastErrors("conference").should.be.empty();
@@ -57,10 +57,10 @@ describe("Messager should", function () {
     describe("send a message to all conference participants", function () {
         it("if i ask to send message to conference participants", function () {
             //Arrange
-            let contact1 = new Contact("Paul", "001", "1977-11-11");
-            let contact2 = new Contact("John", "002", "1978-11-12");
+            let paul = createContact("Paul");
+            let john = createContact("John");
             //Act
-            messager.createConferenceWith(contact1, contact2);
+            messager.createConferenceWith(paul, john);
             messager.sendConferenceMessage("test conference message");
             //Assert
             messager.getLastErrors("conference").should.be.empty();
@@ -77,22 +77,22 @@ describe("Messager should", function () {
     describe("remind that my contact has a birthday", function () {
         it.only("if i am available online", function () {
             let date = new Date();
-            let contact = new Contact("Paul", "001", "1977-" + ( date.getMonth() + 1 ) + "-" + date.getDate());
-            messager.addContact(contact);
+            let paul = createContact("Paul", null, "1977-" + ( date.getMonth() + 1 ) + "-" + date.getDate());
+            messager.addContact(paul);
             messager.checkContactsInfo();
             messager.contacts.size.should.be.exactly(1);
             messager.getLastMessage().should.be.exactly(
-                `${contact.getName()}(phone:${contact.getPhone()}) has a birthday today. Send congratulations with postcard Happy Birthday?`
+                `${paul.getName()}(phone:${paul.getPhone()}) has a birthday today. Send congratulations with postcard Happy Birthday?`
             )
         });
     });
 
     function createContact(name, phone, birth) {
-        if (undefined == birth) {
+        if (undefined == birth || null == birth) {
             let date = randomDate();
             birth = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
         }
-        if (undefined == phone)
+        if (undefined == phone || null == phone)
             phone = 10000000 + Math.random() * 99999999;
 
         return new Contact(name, phone, birth);
