@@ -69,11 +69,10 @@ describe("Messager should", function () {
             //Arrange
             let paul = createContact("Paul");
             let john = createContact("John");
-            //Act
             messager.createConferenceWith(paul, john);
+            //Act
             messager.sendConferenceMessage("test conference message");
             //Assert
-            messager.getLastErrors("conference").should.be.empty();
             messager.getLastMessage().should.be.exactly("test conference message");
             messager.getLastErrors("messaging").should.be.empty();
         });
