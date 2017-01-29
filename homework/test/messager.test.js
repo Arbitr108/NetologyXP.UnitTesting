@@ -42,8 +42,8 @@ describe("Messager should", function () {
             messager.getLastMessage().should.be.exactly("test message");
         });
     });
-    describe("create a conference", function () {
-        it("if i ask to create a conference", function () {
+    describe("add new contacts", function () {
+        it("if i add new contacts to the conference", function () {
             //Arrange
             let paul = createContact("Paul");
             let john = createContact("John");
@@ -51,6 +51,16 @@ describe("Messager should", function () {
             messager.createConferenceWith(paul, john);
             //Assert
             messager.contacts.size.should.be.exactly(2);
+        });
+    });
+    describe("create a conference", function () {
+        it("if i press button create a conference", function () {
+            //Arrange
+            let paul = createContact("Paul");
+            let john = createContact("John");
+            //Act
+            messager.createConferenceWith(paul, john);
+            //Assert
             messager.getLastErrors("conference").should.be.empty();
         });
     });
@@ -75,7 +85,7 @@ describe("Messager should", function () {
         });
     });
     describe("remind that my contact has a birthday", function () {
-        it.only("if i am available online", function () {
+        it("if i am available online", function () {
             let date = new Date();
             let paul = createContact("Paul", null, "1977-" + ( date.getMonth() + 1 ) + "-" + date.getDate());
             messager.addContact(paul);
