@@ -24,12 +24,6 @@ describe("Messager should", function () {
         messager = new Messager();
     });
 
-    describe("has a contact list", function () {
-        it("if start to use it", function () {
-            //Assert
-            messager.should.have.property("contacts");
-        });
-    });
     describe('has to save contact', function () {
         it("if i add a contact", function () {
             // Arrange
