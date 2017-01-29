@@ -85,6 +85,26 @@ describe("Messager should", function () {
                 `${contact.getName()}(phone:${contact.getPhone()}) has a birthday today. Send congratulations with postcard Happy Birthday?`
             )
         });
-    })
+    });
+
+    function createContact(name, phone, birth) {
+        if (undefined == birth) {
+            let date = randomDate();
+            birth = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+        }
+        if (undefined == phone)
+            phone = 10000000 + Math.random() * 99999999;
+
+        return new Contact(name, phone, birth);
+    }
+
+    function randomDate() {
+        const START_YEAR = 1950;
+        const END_YEAR = 2000;
+        let year = START_YEAR + Math.random() * (END_YEAR - START_YEAR);
+        let day = 1 + Math.random() * (30 - 1);
+        let month = 1 + Math.random() * (12 - 1);
+        return new Date(year, month, day);
+    }
 
 });
