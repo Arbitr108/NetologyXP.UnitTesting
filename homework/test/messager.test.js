@@ -82,7 +82,8 @@ describe("Messager should", function () {
     });
     describe("remind that my contact has a birthday", function () {
         it.only("if i am available online", function () {
-            let contact = new Contact("Paul", "001", "1977-01-23");
+            let date = new Date();
+            let contact = new Contact("Paul", "001", "1977-" + ( date.getMonth() + 1 ) + "-" + date.getDate());
             messager.addContact(contact);
             messager.checkContactsInfo();
             messager.contacts.size.should.be.exactly(1);
