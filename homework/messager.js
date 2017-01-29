@@ -89,5 +89,13 @@ class Messager {
     _getPostcard() {
         return "Happy Birthday";
     }
+
+    getIncomingMessages() {
+        return this._inbox;
+    }
+
+    setIncomingMessage(message) {
+        this._inbox.push(message);
+    }
 }
 module.exports = Messager;

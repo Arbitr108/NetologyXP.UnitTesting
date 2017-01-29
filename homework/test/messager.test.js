@@ -79,17 +79,23 @@ describe("Messager should", function () {
     });
     describe("recieve messages", function () {
         it("if i am available online", function () {
-            messager._inbox.push("test incoming message");
+            //Arrange
+            //I am online when the object is instantiated
+            //Act
+            messager.setIncomingMessage("test incoming message");
+            //Assert
             messager.hasIncomingMessages().should.be.equal(true);
         });
     });
     describe("remind that my contact has a birthday", function () {
         it("if i am available online", function () {
+            //Arrange
             let date = new Date();
             let paul = createContact("Paul", null, "1977-" + ( date.getMonth() + 1 ) + "-" + date.getDate());
             messager.addContact(paul);
+            //Act
             messager.checkContactsInfo();
-            messager.contacts.size.should.be.exactly(1);
+            //Assert
             messager.getLastMessage().should.be.exactly(
                 `${paul.getName()}(phone:${paul.getPhone()}) has a birthday today. Send congratulations with postcard Happy Birthday?`
             )
