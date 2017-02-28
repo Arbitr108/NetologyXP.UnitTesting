@@ -79,7 +79,6 @@ describe("Messager should", function () {
     });
     describe("recieve messages", function () {
         it("if i am available online", function () {
-            //Arrange
             //I am online when the object is instantiated
             //Act
             messager.setIncomingMessage("test incoming message");
