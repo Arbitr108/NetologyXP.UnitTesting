@@ -29,7 +29,7 @@ describe("Messager should", function () {
             // Arrange
             let contact = createContact("Paul");
             messager.addContact(contact);
-            messager.contacts.size.should.be.exactly(1);
+            messager.contacts.size.should.be.exactly(2);
         })
     });
     describe("send a message", function () {
@@ -71,13 +71,13 @@ describe("Messager should", function () {
             let john = createContact("John");
             messager.createConferenceWith(paul, john);
             //Act
-            messager.sendConferenceMessage("test conference message 1");
+            messager.sendConferenceMessage("test conference message");
             //Assert
             messager.getLastMessage().should.be.exactly("test conference message");
             messager.getLastErrors("messaging").should.be.empty();
         });
     });
-    describe("recieve messages", function () {
+    describe("receive messages", function () {
         it("if i am available online", function () {
             //I am online when the object is instantiated
             //Act
