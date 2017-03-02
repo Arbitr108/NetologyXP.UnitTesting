@@ -29,7 +29,7 @@ describe("Messager should", function () {
             // Arrange
             let contact = createContact("Paul");
             messager.addContact(contact);
-            messager.contacts.size.should.be.exactly(2);
+            messager.contacts.size.should.be.exactly(1);
         })
     });
     describe("send a message", function () {
