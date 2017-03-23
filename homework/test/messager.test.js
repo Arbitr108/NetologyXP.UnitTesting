@@ -50,7 +50,7 @@ describe("Messager should", function () {
             //Act
             messager.createConferenceWith(paul, john);
             //Assert
-            messager.contacts.size.should.be.exactly(3);
+            messager.contacts.size.should.be.exactly(2);
         });
     });
     describe("create a conference", function () {
