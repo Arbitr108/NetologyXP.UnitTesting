@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "XP. Unit testing naming and structure",
   "scripts": {
-    "test": "node_modules/mocha/bin/mocha -R spec test/*.js"
+    "test": "node_modules/mocha/bin/mocha -R spec homework/test/*.js"
   },
   "repository": {
     "type": "git",
